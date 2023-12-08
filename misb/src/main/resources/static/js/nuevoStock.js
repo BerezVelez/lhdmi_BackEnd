@@ -36,7 +36,6 @@ function descrtxt() {
   document.getElementById("descripreview").innerHTML = "Descripción: " + descripcion;
 }
 
-
 function preciotxt() {
   let precio = document.getElementById("precio").value;
   document.getElementById("preciopreview").innerHTML = "<strong>Precio: $ " + precio + "</strong>";
@@ -63,8 +62,6 @@ function updateElements(seccionClass, frontClass, backClass, btnClass, iconClass
   btnCarrito.className = btnClass;
   btnCarrito.innerHTML = `<i class="${iconClass}"></i>`;
 }
-
-
 
 btnFake.addEventListener('click', function(){
     fileImage.click();
@@ -239,14 +236,56 @@ btnpublicar.addEventListener("click", function(event){
     }
 
   if(isValid){
-    registrarObra();
-    Swal.fire({
-      title: 'Publicado en Galería',
-      text: 'Muchas gracias por el arte nuevo',
-      icon: 'succes',
-      confirmButtonColor: "#E4C247",
-      confirmButtonText: 'Gracias a ti'
-    })
+	//AQUI EMPIEZA FETCH
+	
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+
+let nuevoProducto = 
+{
+  titulo: title.value,
+  descripcion: description.value,
+  imagen: img.value,
+  precio: precio.value,
+  seccion: section.value,
+  autora: autor.value
+}
+
+var raw = JSON.stringify(nuevoProducto);
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+console.log(nuevoProducto)
+console.log(raw)
+
+fetch("http://localhost:8080/api/galeria/", requestOptions)
+  .then(response => response.text())
+  .then(result => {console.log(`[${result}]`);
+  			if (result == ""){
+        Swal.fire({title:"Producto existente",
+                            text: 'El producto con esté título ya está en Galería',
+                            icon: 'error',
+                            confirmButtonColor: "#E4C247",
+                            confirmButtonText: '¡Lo checo, gracias!'
+                });//sweetalert
+    	}else{
+        Swal.fire({title:"Publicado en Galería",
+                        text: 'Muchas gracias por el arte nuevo',
+                        icon: 'success',
+                        confirmButtonColor: "#E4C247",
+                        confirmButtonText: 'Gracias a ti'
+            })//sweetalert
+    	}//else
+  })//then
+  .catch(error => console.log('error', error));
+    
+//    registrarObra();
 
       title.value = "";
       autor.value = "";
@@ -255,14 +294,13 @@ btnpublicar.addEventListener("click", function(event){
       section.value = "";
       img.value= "";
       title.focus();
-
-   
-    }
-});
-
+    }//isValid
+});//botón
+/*
 function registrarObra(){
   
   let elemento = `{"name": "${title.value}","autor": "${autor.value}","img": "${img.value}", "description": "${description.value}", "precio": "${precio.value}", "section": "${section.value}"}`;//section.value devuelve el número de la selección
   datosnew.push(JSON.parse(elemento));
   localStorage.setItem("datosnew", JSON.stringify(datosnew));
 }//funcion registrarObra
+*/

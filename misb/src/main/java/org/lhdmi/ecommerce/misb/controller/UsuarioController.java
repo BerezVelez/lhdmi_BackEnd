@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-@CrossOrigin(origins="*")
+//@CrossOrigin(origins="*")
 @RestController
 @RequestMapping(path = "/api/usuarios/") //http://localhost:8080/api/usuarios/
 public class UsuarioController {

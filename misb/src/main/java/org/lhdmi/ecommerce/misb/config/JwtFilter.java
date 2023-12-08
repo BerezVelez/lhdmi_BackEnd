@@ -24,7 +24,7 @@ public class JwtFilter extends GenericFilterBean{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		//RECIBE LA SOLICITUD Y DA LA AUTORIZACIÓN
+//		RECIBE LA SOLICITUD Y DA LA AUTORIZACIÓN
 //		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 //		String authHeader =  httpServletRequest.getHeader("authorization");
 //		if (
@@ -36,7 +36,9 @@ public class JwtFilter extends GenericFilterBean{
 //				||
 //				(("GET".equals(httpServletRequest.getMethod())) 
 //				&& 
-//				(! httpServletRequest.getRequestURI().contains("/api/galeria/")) 
+//				(! httpServletRequest.getRequestURI().contains("/api/galeria/"))
+//				&& 
+//				(! httpServletRequest.getRequestURI().contains("/api/login/"))
 //				&& 
 //				(! httpServletRequest.getRequestURI().contains("/api/secciones/")))
 //				||
